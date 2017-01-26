@@ -38,20 +38,35 @@
                                             <rect key="frame" x="0.0" y="0.0" width="168" height="133"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TpQ-cv-irg">
-                                                    <rect key="frame" x="67" y="56" width="34" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HZt-36-kO2" userLabel="containerView">
+                                                    <rect key="frame" x="0.0" y="-0.5" width="168" height="133"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TpQ-cv-irg">
+                                                            <rect key="frame" x="67" y="56" width="34" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.14901960780000001" green="0.66666666669999997" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="133" id="IeK-kH-arq"/>
+                                                        <constraint firstAttribute="width" constant="168" id="e05-lA-8Zy"/>
+                                                        <constraint firstItem="TpQ-cv-irg" firstAttribute="centerX" secondItem="HZt-36-kO2" secondAttribute="centerX" id="mJ4-WI-mjc"/>
+                                                        <constraint firstItem="TpQ-cv-irg" firstAttribute="centerY" secondItem="HZt-36-kO2" secondAttribute="centerY" id="w0e-AV-Q7e"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="TpQ-cv-irg" firstAttribute="centerY" secondItem="cNT-CZ-gmD" secondAttribute="centerY" id="nHp-O2-gUN"/>
-                                            <constraint firstItem="TpQ-cv-irg" firstAttribute="centerX" secondItem="cNT-CZ-gmD" secondAttribute="centerX" id="tPm-A7-JHJ"/>
+                                            <constraint firstItem="HZt-36-kO2" firstAttribute="centerY" secondItem="cNT-CZ-gmD" secondAttribute="centerY" id="gGZ-l8-sX9"/>
+                                            <constraint firstItem="HZt-36-kO2" firstAttribute="centerX" secondItem="cNT-CZ-gmD" secondAttribute="centerX" id="rFz-Cb-MZt"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="containerView" destination="HZt-36-kO2" id="q7e-e3-EdZ"/>
+                                            <outlet property="containerViewHeight" destination="IeK-kH-arq" id="f1i-vt-hpP"/>
+                                            <outlet property="containerViewWidth" destination="e05-lA-8Zy" id="9BZ-gH-bW4"/>
                                             <outlet property="titleLabel" destination="TpQ-cv-irg" id="k0n-vS-zfT"/>
                                         </connections>
                                     </collectionViewCell>
@@ -74,6 +89,9 @@
                             <constraint firstItem="qAS-uh-c4a" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="w1H-5h-HWp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="qAS-uh-c4a" id="DJd-zw-X7I"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
