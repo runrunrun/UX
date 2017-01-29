@@ -26,7 +26,11 @@ class CollectionCell: UICollectionViewCell {
     
     private var scaleUp: CABasicAnimation?
     private var vibrate: CABasicAnimation?
+    private let vibrateAnimationKey = "vibrate"
     
+    private let scaleValue = 1.2
+    private let scaleDuration = 0.1
+
     weak var delegate: CollectionCellDelegate?
     
     override func didMoveToWindow() {
@@ -34,28 +38,22 @@ class CollectionCell: UICollectionViewCell {
         
         if longPress == nil {
             longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
-            self.addGestureRecognizer(longPress!)
+            addGestureRecognizer(longPress!)
         }
     }
     
     var isEditing: Bool = false {
         didSet {
-            
-            if isEditing {
-                // Vibrate with cancel button
-            }
-            else {
-                // Stop vibrating and hide cancel button.
-                
-            }
+            vibrate(isEditing)
         }
     }
 
     func longPressAction(gesture: UILongPressGestureRecognizer) {
-        let scaleValue = 1.2
-        let scaleDuration = 0.1
         if gesture.state == .began {
-            //delegate?.longPressedCollectionCell(cell: self)
+            delegate?.longPressedCollectionCell(cell: self)
+            
+            // Stop vibrating
+            vibrate(false)
             
             // Scale Up
             scaleUp = CABasicAnimation(keyPath: "transform.scale")
@@ -64,7 +62,7 @@ class CollectionCell: UICollectionViewCell {
             scaleUp?.duration = scaleDuration
             scaleUp?.fillMode = kCAFillModeForwards
             scaleUp?.isRemovedOnCompletion = false
-            self.layer.add(scaleUp!, forKey: "scalingUp")
+            layer.add(scaleUp!, forKey: "scalingUp")
         }
         
         if gesture.state == .ended {
@@ -73,20 +71,31 @@ class CollectionCell: UICollectionViewCell {
             scaleDown.fromValue = scaleValue
             scaleDown.toValue = 1.0
             scaleDown.duration = scaleDuration
-            self.layer.add(scaleDown, forKey: "scalingDown")
-            self.layer.removeAnimation(forKey: "scalingUp")
+            layer.add(scaleDown, forKey: "scalingDown")
+            layer.removeAnimation(forKey: "scalingUp")
             
-            // Vibrate
-            let angle = Float.pi/72 // 2.5 degree
-            vibrate = CABasicAnimation(keyPath: "transform.rotation")
-            vibrate?.beginTime = CACurrentMediaTime() + scaleDuration
-            vibrate?.duration = 0.15
-            vibrate?.fromValue = -angle
-            vibrate?.toValue = angle
-            vibrate?.autoreverses = true
-            vibrate?.repeatCount = .infinity
-            self.layer.add(vibrate!, forKey: "vibrate")
+            vibrate(true)
         }
     }
     
+    private func vibrate(_ start: Bool) {
+        if start {
+            let isVibrating = layer.animation(forKey: vibrateAnimationKey) != nil
+            if !isVibrating {
+                // Vibrate
+                let angle = Float.pi/72 // 2.5 degree
+                vibrate = CABasicAnimation(keyPath: "transform.rotation")
+                vibrate?.beginTime = CACurrentMediaTime() + scaleDuration
+                vibrate?.duration = 0.15
+                vibrate?.fromValue = -angle
+                vibrate?.toValue = angle
+                vibrate?.autoreverses = true
+                vibrate?.repeatCount = .infinity
+                layer.add(self.vibrate!, forKey: vibrateAnimationKey)
+            }
+        }
+        else {
+            layer.removeAnimation(forKey: vibrateAnimationKey)
+        }
+    }
 }

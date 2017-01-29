@@ -9,7 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    fileprivate var isEditingCells: Bool?
+    fileprivate var isEditingCells = false
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
@@ -30,11 +30,9 @@ extension ViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as! CollectionCell
-        cell.titleLabel.text = "Cell Number \(indexPath.row)"
+        cell.titleLabel.text = "Cell\(indexPath.row)"
         cell.delegate = self
-        if let editing = isEditingCells {
-            cell.isEditing = editing
-        }
+        cell.isEditing = isEditingCells
         
         return cell
     }
@@ -42,14 +40,14 @@ extension ViewController: UICollectionViewDataSource {
 
 extension ViewController: CollectionCellDelegate {
     func longPressedCollectionCell(cell: CollectionCell) {
-        if let editing = isEditingCells {
-            isEditingCells = !editing
-        }
-        else {
-            isEditingCells = true
+        isEditingCells = true
+        
+        for cell in collectionView.visibleCells {
+            if let cell = cell as? CollectionCell {
+                cell.isEditing = isEditingCells
+            }
         }
         
-        collectionView.reloadData()
     }
     
 }
