@@ -9,14 +9,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-    fileprivate var isEditingCells = false
     @IBOutlet weak var collectionView: UICollectionView!
-
+    fileprivate var isEditingCells = false
     fileprivate var cellScreenShot = UIImageView()
     fileprivate let scaleValue = 1.2
     fileprivate let scaleDuration = 0.1
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,7 +24,6 @@ class ViewController: UIViewController {
         cellScreenShot.contentMode = .scaleToFill
         self.view.addSubview(cellScreenShot)
     }
-    
 }
 
 extension ViewController: UICollectionViewDelegate {
@@ -54,10 +51,6 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: CollectionCellDelegate {
-    func touched(cell: CollectionCell) {
-    }
-
-    
     func beginLongPress(cell: CollectionCell) {
         isEditingCells = true
         
@@ -103,7 +96,6 @@ extension ViewController: CollectionCellDelegate {
         }, completion: nil)
 
     }
-
 }
 
 

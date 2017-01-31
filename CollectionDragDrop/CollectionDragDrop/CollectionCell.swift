@@ -9,7 +9,6 @@
 import UIKit
 
 protocol CollectionCellDelegate: class {
-    func touched(cell: CollectionCell)
     func beginLongPress(cell: CollectionCell)
     func endLongPress(cell: CollectionCell)
 }
@@ -61,21 +60,14 @@ class CollectionCell: UICollectionViewCell {
             layer.removeAnimation(forKey: vibrateAnimationKey)
         }
     }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        delegate?.touched(cell: self)
-    }
 }
 
 extension CollectionCell: UIGestureRecognizerDelegate {
-    
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         
         return true
     }
 
-    
     func longPressAction(gesture: UILongPressGestureRecognizer) {
         
         if gesture.state == .began {
@@ -99,7 +91,6 @@ extension CollectionCell {
         if gesture.state == .began {
         
         }
-        
     }
 }
 
