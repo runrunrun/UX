@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E27D8861E3E378200F11023 /* UIView+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E27D8851E3E378200F11023 /* UIView+Image.swift */; };
 		1E7FB95F1E38EC580055C66C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7FB95E1E38EC580055C66C /* AppDelegate.swift */; };
 		1E7FB9611E38EC580055C66C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7FB9601E38EC580055C66C /* ViewController.swift */; };
 		1E7FB9641E38EC580055C66C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E7FB9621E38EC580055C66C /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E27D8851E3E378200F11023 /* UIView+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Image.swift"; sourceTree = "<group>"; };
 		1E7FB95B1E38EC580055C66C /* CollectionDragDrop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CollectionDragDrop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E7FB95E1E38EC580055C66C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E7FB9601E38EC580055C66C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,6 +61,7 @@
 				1E7FB95E1E38EC580055C66C /* AppDelegate.swift */,
 				1E7FB9601E38EC580055C66C /* ViewController.swift */,
 				1E7FB9701E38F1530055C66C /* CollectionCell.swift */,
+				1E27D8851E3E378200F11023 /* UIView+Image.swift */,
 				1E7FB9621E38EC580055C66C /* Main.storyboard */,
 				1E7FB9651E38EC580055C66C /* Assets.xcassets */,
 				1E7FB9671E38EC580055C66C /* LaunchScreen.storyboard */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E27D8861E3E378200F11023 /* UIView+Image.swift in Sources */,
 				1E7FB9611E38EC580055C66C /* ViewController.swift in Sources */,
 				1E7FB95F1E38EC580055C66C /* AppDelegate.swift in Sources */,
 				1E7FB9711E38F1530055C66C /* CollectionCell.swift in Sources */,

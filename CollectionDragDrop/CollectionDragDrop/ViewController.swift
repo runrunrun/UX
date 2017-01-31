@@ -11,15 +11,30 @@ import UIKit
 class ViewController: UIViewController {
     fileprivate var isEditingCells = false
     @IBOutlet weak var collectionView: UICollectionView!
+
+    fileprivate var cellScreenShot = UIImageView()
+    fileprivate let scaleValue = 1.2
+    fileprivate let scaleDuration = 0.1
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        cellScreenShot.layer.borderColor = UIColor.red.cgColor
+        cellScreenShot.layer.borderWidth = 2.0
+        
+        cellScreenShot.contentMode = .scaleToFill
+        self.view.addSubview(cellScreenShot)
     }
     
 }
 
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
     }
 }
 
@@ -39,17 +54,56 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: CollectionCellDelegate {
-    func longPressedCollectionCell(cell: CollectionCell) {
+    func touched(cell: CollectionCell) {
+    }
+
+    
+    func beginLongPress(cell: CollectionCell) {
         isEditingCells = true
         
+        // Replace cell with screenshot
+        cellScreenShot.alpha = 1.0
+        cellScreenShot.image = cell.screenShot()
+        cellScreenShot.frame = cell.frame
+        view.bringSubview(toFront: cellScreenShot)
+        
+        // Hide cell
+        cell.alpha = 0.0
+        
+        // Scale up screenshot
+        let scaleUp = CABasicAnimation(keyPath: "transform.scale")
+        scaleUp.fromValue = 1.0
+        scaleUp.toValue = 1.2
+        scaleUp.duration = 0.1
+        scaleUp.fillMode = kCAFillModeForwards
+        scaleUp.isRemovedOnCompletion = false
+        cellScreenShot.layer.add(scaleUp, forKey: "scalingUp")
+        
+        // Change visible cells state.
         for cell in collectionView.visibleCells {
             if let cell = cell as? CollectionCell {
                 cell.isEditing = isEditingCells
             }
         }
-        
     }
     
+    func endLongPress(cell: CollectionCell) {
+        // Scale Down
+        let scaleDown = CABasicAnimation(keyPath: "transform.scale")
+        scaleDown.fromValue = scaleValue
+        scaleDown.toValue = 1.0
+        scaleDown.duration = scaleDuration
+        cellScreenShot.layer.add(scaleDown, forKey: "scalingDown")
+        cellScreenShot.layer.removeAnimation(forKey: "scalingUp")
+        
+        // Show cell and hide cell screenshot.
+        UIView.animate(withDuration: 0.01, delay: scaleDuration, animations: {
+            cell.alpha = 1.0
+            self.cellScreenShot.alpha = 0.0
+        }, completion: nil)
+
+    }
+
 }
 
 
