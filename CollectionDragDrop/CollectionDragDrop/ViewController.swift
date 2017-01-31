@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     fileprivate var cellScreenShot = UIImageView()
     fileprivate let scaleValue = 1.2
     fileprivate let scaleDuration = 0.1
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         
         cellScreenShot.contentMode = .scaleToFill
         self.view.addSubview(cellScreenShot)
+        
     }
 }
 
@@ -96,7 +97,17 @@ extension ViewController: CollectionCellDelegate {
         }, completion: nil)
 
     }
+    
+    func moved(cell: CollectionCell, center: CGPoint) {
+        cellScreenShot.center = center
+    }
 }
 
+extension ViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+    
+}
 
 
