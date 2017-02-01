@@ -99,7 +99,33 @@ extension ViewController: CollectionCellDelegate {
     }
     
     func moved(cell: CollectionCell, center: CGPoint) {
+        // Move cell screenshot
         cellScreenShot.center = center
+        
+        // Detect cell to move
+        var movingCellIndex: IndexPath?
+        // Find the cell that intersects moving screenshot
+        for cell in collectionView.visibleCells {
+            let intersectionSize = cell.frame.intersection(cellScreenShot.frame).size
+            let screenshotSize = cellScreenShot.bounds.size
+            
+            if intersectionSize.width > screenshotSize.width/2 && intersectionSize.height > screenshotSize.height/2 {
+                movingCellIndex = collectionView.indexPath(for: cell)
+                break
+            }
+        }
+        
+        // Move cell
+        if let movingCellIndex = movingCellIndex {
+            if let indexPath = collectionView.indexPath(for: cell) {
+                self.collectionView.performBatchUpdates({
+                    self.collectionView.moveItem(at: indexPath, to: movingCellIndex)
+                }) { (done) in
+                    
+                }
+            }
+        }
+        
     }
 }
 

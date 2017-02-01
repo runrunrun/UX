@@ -20,6 +20,7 @@ class CollectionCell: UICollectionViewCell {
     
     fileprivate let vibrateAnimationKey = "vibrate"
     fileprivate var initialCenter: CGPoint?
+    fileprivate var gestureDistanceFromCenter: CGSize?
     
     weak var delegate: CollectionCellDelegate?
     
@@ -87,10 +88,18 @@ extension CollectionCell: UIGestureRecognizerDelegate {
             self.isHidden = true
             vibrate(false)
             
-            initialCenter = gesture.location(in: view.superview)
+            let gesturePosition = gesture.location(in: view.superview)
+            let distanceFromCenterX = view.center.x - gesturePosition.x
+            let distanceFromCenterY = view.center.y - gesturePosition.y
+            //
+            gestureDistanceFromCenter = CGSize(width: distanceFromCenterX, height: distanceFromCenterY)
+            
+//            let centerX = gesturePoint.x + distanceFromCenterX
+//            let centerY = gesturePoint.y + distanceFromCenterY
+//            initialCenter = CGPoint(x: centerX, y: centerY)
         }
         else if gesture.state == .changed {
-            guard let originalCenter = initialCenter else {
+            guard let distanceFromCenter = gestureDistanceFromCenter else {
                 return
             }
 
@@ -101,10 +110,10 @@ extension CollectionCell: UIGestureRecognizerDelegate {
             let point = gesture.location(in: view.superview)
             
             // Calculate new center position
-            var newCenter = view.center;
-            newCenter.x += point.x - originalCenter.x;
-            newCenter.y += point.y - originalCenter.y;
-            
+            let centerX = point.x + distanceFromCenter.width;
+            let centerY = point.y + distanceFromCenter.height;
+            let newCenter = CGPoint(x: centerX, y: centerY)
+
             // Notify delegate
             delegate?.moved(cell: self, center: newCenter)
         }
