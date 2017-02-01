@@ -18,17 +18,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cellScreenShot.layer.borderColor = UIColor.red.cgColor
-        cellScreenShot.layer.borderWidth = 2.0
-        
         cellScreenShot.contentMode = .scaleToFill
         self.view.addSubview(cellScreenShot)
-        
     }
 }
 
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -82,6 +79,7 @@ extension ViewController: CollectionCellDelegate {
     }
     
     func endLongPress(cell: CollectionCell) {
+        cell.alpha = 0
         // Scale Down
         let scaleDown = CABasicAnimation(keyPath: "transform.scale")
         scaleDown.fromValue = scaleValue
@@ -91,11 +89,12 @@ extension ViewController: CollectionCellDelegate {
         cellScreenShot.layer.removeAnimation(forKey: "scalingUp")
         
         // Show cell and hide cell screenshot.
-        UIView.animate(withDuration: 0.01, delay: scaleDuration, animations: {
-            cell.alpha = 1.0
+        UIView.animate(withDuration: 0.3, delay: scaleDuration, animations: {
+            self.cellScreenShot.center = cell.center
+        }, completion: { (done) in
             self.cellScreenShot.alpha = 0.0
-        }, completion: nil)
-
+            cell.alpha = 1.0
+        })
     }
     
     func moved(cell: CollectionCell, center: CGPoint) {
@@ -125,7 +124,6 @@ extension ViewController: CollectionCellDelegate {
                 }
             }
         }
-        
     }
 }
 

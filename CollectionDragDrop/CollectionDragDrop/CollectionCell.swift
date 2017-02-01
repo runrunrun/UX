@@ -93,10 +93,6 @@ extension CollectionCell: UIGestureRecognizerDelegate {
             let distanceFromCenterY = view.center.y - gesturePosition.y
             //
             gestureDistanceFromCenter = CGSize(width: distanceFromCenterX, height: distanceFromCenterY)
-            
-//            let centerX = gesturePoint.x + distanceFromCenterX
-//            let centerY = gesturePoint.y + distanceFromCenterY
-//            initialCenter = CGPoint(x: centerX, y: centerY)
         }
         else if gesture.state == .changed {
             guard let distanceFromCenter = gestureDistanceFromCenter else {
