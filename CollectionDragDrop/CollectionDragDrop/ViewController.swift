@@ -20,6 +20,9 @@ class ViewController: UIViewController {
         
         cellScreenShot.contentMode = .scaleToFill
         self.view.addSubview(cellScreenShot)
+        
+        let tapping = UITapGestureRecognizer(target: self, action: #selector(tapping(gesture:)))
+        self.view.addGestureRecognizer(tapping)
     }
 }
 
@@ -49,7 +52,7 @@ extension ViewController: UICollectionViewDataSource {
 }
 
 extension ViewController: CollectionCellDelegate {
-    func beginLongPress(cell: CollectionCell) {
+    func willBeginDragging(cell: CollectionCell) {
         isEditingCells = true
         
         // Replace cell with screenshot
@@ -59,7 +62,7 @@ extension ViewController: CollectionCellDelegate {
         view.bringSubview(toFront: cellScreenShot)
         
         // Hide cell
-        cell.alpha = 0.0
+        cell.isHidden = true
         
         // Scale up screenshot
         let scaleUp = CABasicAnimation(keyPath: "transform.scale")
@@ -71,15 +74,10 @@ extension ViewController: CollectionCellDelegate {
         cellScreenShot.layer.add(scaleUp, forKey: "scalingUp")
         
         // Change visible cells state.
-        for cell in collectionView.visibleCells {
-            if let cell = cell as? CollectionCell {
-                cell.isEditing = isEditingCells
-            }
-        }
+        updateEditState(isEditingCells)
     }
     
-    func endLongPress(cell: CollectionCell) {
-        cell.alpha = 0
+    func didEndDragging(cell: CollectionCell) {
         // Scale Down
         let scaleDown = CABasicAnimation(keyPath: "transform.scale")
         scaleDown.fromValue = scaleValue
@@ -93,11 +91,11 @@ extension ViewController: CollectionCellDelegate {
             self.cellScreenShot.center = cell.center
         }, completion: { (done) in
             self.cellScreenShot.alpha = 0.0
-            cell.alpha = 1.0
+            cell.isHidden = false
         })
     }
     
-    func moved(cell: CollectionCell, center: CGPoint) {
+    func didDrag(cell: CollectionCell, to center: CGPoint) {
         // Move cell screenshot
         cellScreenShot.center = center
         
@@ -125,6 +123,15 @@ extension ViewController: CollectionCellDelegate {
             }
         }
     }
+    
+    // Update UI for edit state
+    func updateEditState(_ edit: Bool) {
+        for cell in collectionView.visibleCells {
+            if let cell = cell as? CollectionCell {
+                cell.isEditing = edit
+            }
+        }
+    }
 }
 
 extension ViewController: UIGestureRecognizerDelegate {
@@ -132,6 +139,10 @@ extension ViewController: UIGestureRecognizerDelegate {
         return true
     }
     
+    func tapping(gesture: UIGestureRecognizer) {
+        isEditingCells = false
+        updateEditState(isEditingCells)
+    }
 }
 
 

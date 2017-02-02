@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CollectionDragDrop/ViewController.swift"
-            timestampString = "507654678.468254"
+            timestampString = "507740454.390562"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "gestureRecognizer(_:shouldRecognizeSimultaneouslyWith:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CollectionDragDrop/ViewController.swift"
-            timestampString = "507654603.564152"
+            filePath = "CollectionDragDrop/CollectionCell.swift"
+            timestampString = "507739565.373112"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "collectionView(_:cellForItemAt:)"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "gestureRecognizerShouldBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,77 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CollectionDragDrop/ViewController.swift"
-            timestampString = "507654587.145377"
+            filePath = "CollectionDragDrop/CollectionCell.swift"
+            timestampString = "507739565.373112"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "collectionView(_:willDisplay:forItemAt:)"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "gestureRecognizerShouldBegin(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CollectionDragDrop.CollectionCell.gestureRecognizerShouldBegin (__ObjC.UIGestureRecognizer) -&gt; Swift.Bool"
+                  moduleName = "CollectionDragDrop"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harikunwar/Git/UX/CollectionDragDrop/CollectionDragDrop/CollectionCell.swift"
+                  timestampString = "507739596.108758"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CollectionDragDrop.CollectionCell.gestureRecognizerShouldBegin (__ObjC.UIGestureRecognizer) -&gt; Swift.Bool"
+                  moduleName = "CollectionDragDrop"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/harikunwar/Git/UX/CollectionDragDrop/CollectionDragDrop/CollectionCell.swift"
+                  timestampString = "507739596.110493"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "130">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CollectionDragDrop/CollectionCell.swift"
+            timestampString = "507739565.373112"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "gestureRecognizerShouldBegin(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CollectionDragDrop/CollectionCell.swift"
+            timestampString = "507739775.703524"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
+            landmarkName = "dragging(gesture:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

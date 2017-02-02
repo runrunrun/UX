@@ -9,9 +9,9 @@
 import UIKit
 
 protocol CollectionCellDelegate: class {
-    func beginLongPress(cell: CollectionCell)
-    func endLongPress(cell: CollectionCell)
-    func moved(cell: CollectionCell, center: CGPoint)
+    func willBeginDragging(cell: CollectionCell)
+    func didEndDragging(cell: CollectionCell)
+    func didDrag(cell: CollectionCell, to center: CGPoint)
 }
 
 class CollectionCell: UICollectionViewCell {
@@ -28,8 +28,13 @@ class CollectionCell: UICollectionViewCell {
     override func didMoveToWindow() {
         super.didMoveToWindow()
         
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressAction(gesture:)))
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(dragging(gesture:)))
         addGestureRecognizer(longPress)
+        longPress.delegate = self
+        
+        let panning = UIPanGestureRecognizer(target: self, action: #selector(dragging(gesture:)))
+        addGestureRecognizer(panning)
+        panning.delegate = self
     }
     
     var isEditing: Bool = false {
@@ -62,30 +67,27 @@ class CollectionCell: UICollectionViewCell {
 
 extension CollectionCell: UIGestureRecognizerDelegate {
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        var shouldBegin = true
+        if let _ = gestureRecognizer as? UIPanGestureRecognizer {
+            shouldBegin = isEditing
+        }
+        return shouldBegin
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
+        return false
     }
  
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
-    }
 
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
-    }
-
-    func longPressAction(gesture: UILongPressGestureRecognizer) {
+    func dragging(gesture: UIGestureRecognizer) {
         if gesture.state == .began {
             guard let view = gesture.view else {
                 return
             }
             
-            delegate?.beginLongPress(cell: self)
+            delegate?.willBeginDragging(cell: self)
+            
             // Stop vibrating
-            self.isHidden = true
             vibrate(false)
             
             let gesturePosition = gesture.location(in: view.superview)
@@ -111,15 +113,15 @@ extension CollectionCell: UIGestureRecognizerDelegate {
             let newCenter = CGPoint(x: centerX, y: centerY)
 
             // Notify delegate
-            delegate?.moved(cell: self, center: newCenter)
+            delegate?.didDrag(cell: self, to: newCenter)
         }
         else if gesture.state == .ended {
-            delegate?.endLongPress(cell: self)
+            delegate?.didEndDragging(cell: self)
             // Start vibrating
-            self.isHidden = false
             vibrate(true)
         }
     }
+    
 }
 
 
