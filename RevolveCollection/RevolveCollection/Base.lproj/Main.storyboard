@@ -70,6 +70,9 @@
                             <constraint firstItem="Nwg-Qh-q1v" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="eil-M2-jFw"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="Nwg-Qh-q1v" id="fRY-hw-eEW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
